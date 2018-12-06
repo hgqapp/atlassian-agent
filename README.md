@@ -15,11 +15,12 @@
 * FishEye
 * Crowd
 * Crucible
+* Third party plugins
 
 ## 使用说明
 
 ### 优势
-* 支持Atlassian家几乎所有产品，同时支持插件。
+* 支持Atlassian家几乎所有产品，同时支持插件（包括插件市场的第三方插件）。
 * 支持DataCenter模式。
 * 相比较于传统的crack来说可以很容易的升级你的服务，而不用重新再次破解。
 * 提供基于java的命令行 keygen，更方便在终端环境使用。
@@ -53,6 +54,7 @@
 * 你得确认已经配置好agent，参考上面说明。
 * 当你试着执行`java -jar /path/to/atlassian-agent.jar`时应该可以看到输出的KeyGen参数帮助。
 * 请仔细看看每个参数的作用，特别是`-p`参数的取值范围。
+* 第三方插件将其`应用密钥`作为`-p`参数。如：`-p com.gliffy.integration.confluence`
 * 在Atlassian服务安装时你应该能看到类似：`AAAA-BBBB-CCCC-DDDD`的server id，请留意。
 * 提供了正确的参数运行KeyGen会在终端输出计算好的激活码。
 * 将生成的激活码复制出来去激活你要使用的服务。

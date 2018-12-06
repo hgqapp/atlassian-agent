@@ -4,12 +4,12 @@ import io.zhile.crack.atlassian.license.LicenseProperty;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 public class FishEye extends LicenseProperty {
-    public FishEye(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        super(ContactName, ContactEMail, ServerID, Organisation);
+    public FishEye(String contactName, String contactEMail, String serverID, String organisation) {
+        super(contactName, contactEMail, serverID, organisation);
     }
 
     @Override
