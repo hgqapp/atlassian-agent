@@ -30,6 +30,7 @@
 
 ### 自行编译
 * Clone本项目源码，pom.xml同级目录执行`mvn package`后即可进行编译。
+* 使用`target`目录产出的`atlassian-agent-jar-with-dependencies.jar`，而非`atlassian-agent.jar`！
 * *如果你不知道我在说什么，最好还是直接下载我编译好的包。*
 
 ### 使用帮助
@@ -54,6 +55,7 @@
 * 在Atlassian服务安装时你应该能看到类似：`AAAA-BBBB-CCCC-DDDD`的server id，请留意。
 * 提供了正确的参数运行KeyGen会在终端输出计算好的激活码。
 * 将生成的激活码复制出来去激活你要使用的服务。
+* 举个栗子：`java -jar atlassian-agent.jar -p conf -m aaa@bbb.com -n my_name -o https://zhile.io -s ABCD-1234-EFGH-5678`
 
 ### 申明
 * 本项目只做个人学习研究之用，不得用于商业用途！
