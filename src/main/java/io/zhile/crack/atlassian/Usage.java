@@ -84,9 +84,9 @@ public class Usage {
         formatter.printHelp("java -jar " + selfPath, OPTIONS, true);
 
         System.out.println("\n================================================================================");
-        System.out.println("\n# Crack agent usage: append -javaagent arg to system environment: CATALINA_OPTS.");
+        System.out.println("\n# Crack agent usage: append -javaagent arg to system environment: JAVA_OPTS.");
         System.out.println("# Example(execute this command or append it to setenv.sh/setenv.bat file): \n");
-        System.out.println("  export CATALINA_OPTS=\"-javaagent:" + selfPath + " ${CATALINA_OPTS}\"");
+        System.out.println("  export JAVA_OPTS=\"-javaagent:" + selfPath + " ${JAVA_OPTS}\"");
         System.out.println("\n# Then start your confluence/jira server.\n");
 
         System.exit(1);
