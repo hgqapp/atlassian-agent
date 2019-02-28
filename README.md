@@ -27,7 +27,7 @@
 * 开源项目，你知道破解时都做了什么。
 
 ### 直接下载
-* 直接下载本项目release包。
+* 直接下载本项目[release](https://github.com/pengzhile/atlassian-agent/releases)包。
 
 ### 自行编译
 * Clone本项目源码，pom.xml同级目录执行`mvn package`后即可进行编译。
