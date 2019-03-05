@@ -1,6 +1,6 @@
 # Atlassian Agent
 
-#### Support (almost any version):
+#### Support (almost any version, include 8.0):
 * JIRA Software
 * JIRA Core
 * JIRA Service Desk
