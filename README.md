@@ -35,6 +35,7 @@
 * *如果你不知道我在说什么，最好还是直接下载我编译好的包。*
 
 ### 使用帮助
+* 破解需要成套使用，不能只破解插件，要先使用`atlassian-agent.jar`破解服务。
 * 如果你已经获得`atlassian-agent.jar`，可以试着执行`java -jar atlassian-agent.jar`看看输出的帮助。
 * 这里的帮助以Atlassian家的Confluence服务为例。
 
@@ -55,7 +56,7 @@
 * 你得确认已经配置好agent，参考上面说明。
 * 当你试着执行`java -jar /path/to/atlassian-agent.jar`时应该可以看到输出的KeyGen参数帮助。
 * 请仔细看看每个参数的作用，特别是`-p`参数的取值范围。
-* 第三方插件将其`应用密钥`作为`-p`参数。如：`-p com.gliffy.integration.confluence`
+* 第三方插件将其`应用密钥/插件关键字`作为`-p`参数。如：`-p com.gliffy.integration.confluence`
 * 在Atlassian服务安装时你应该能看到类似：`AAAA-BBBB-CCCC-DDDD`的server id，请留意。
 * 提供了正确的参数运行KeyGen会在终端输出计算好的激活码。
 * 将生成的激活码复制出来去激活你要使用的服务。
