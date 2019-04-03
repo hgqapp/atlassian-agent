@@ -1,7 +1,7 @@
 # Atlassian Agent
 
 #### Support (almost any version, include 8.0):
-* JIRA Software
+* JIRA Software [FAQ](doc/JIRA_FAQ.md)
 * JIRA Core
 * JIRA Service Desk
 * JIRA plugin: Capture
@@ -13,7 +13,7 @@
 * Bamboo
 * Bitbucket
 * FishEye
-* Crowd
+* Crowd [FAQ](doc/Crowd_FAQ.md)
 * Crucible
 * Third party plugins
 
