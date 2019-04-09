@@ -11,7 +11,7 @@
 * Confluence plugin: Questions
 * Confluence plugin: Team Calendars
 * Bamboo
-* Bitbucket
+* Bitbucket [FAQ](doc/Bitbucket_FAQ.md)
 * FishEye
 * Crowd [FAQ](doc/Crowd_FAQ.md)
 * Crucible
