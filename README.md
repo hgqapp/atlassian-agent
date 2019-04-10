@@ -12,9 +12,9 @@
 * Confluence plugin: Team Calendars
 * Bamboo [FAQ](doc/Bamboo_FAQ.md)
 * Bitbucket [FAQ](doc/Bitbucket_FAQ.md)
-* FishEye
+* FishEye [FAQ](doc/FishEye_Crucible_FAQ.md)
 * Crowd [FAQ](doc/Crowd_FAQ.md)
-* Crucible
+* Crucible [FAQ](doc/FishEye_Crucible_FAQ.md)
 * Third party plugins
 
 ## 使用说明
