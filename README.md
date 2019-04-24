@@ -7,7 +7,7 @@
 * JIRA plugin: Capture
 * JIRA plugin: Training
 * JIRA plugin: Portfolio
-* Confluence
+* Confluence [Windows特别注意](doc/Confluence_FAQ.md)
 * Confluence plugin: Questions
 * Confluence plugin: Team Calendars
 * Bamboo [FAQ](doc/Bamboo_FAQ.md)
