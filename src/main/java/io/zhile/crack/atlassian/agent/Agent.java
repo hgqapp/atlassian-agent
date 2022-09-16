@@ -9,8 +9,16 @@ import java.lang.instrument.Instrumentation;
  */
 public class Agent {
     public static void premain(String args, Instrumentation inst) {
+
+        System.out.println("====================================================");
+        System.out.println("=======        Atlassian Crack Agent         =======");
+        System.out.println("====================================================");
+
+        //noinspection UnnecessaryLocalVariable
+        final String appLibPath = args;
+        System.out.printf("application lib: %s \n", appLibPath);
         try {
-            inst.addTransformer(new KeyTransformer());
+            inst.addTransformer(new KeyTransformer(appLibPath));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
