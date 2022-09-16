@@ -19,6 +19,11 @@ public class KeyTransformer implements ClassFileTransformer {
 
     private static final String LICENSE_DECODER_PATH = "com/atlassian/extras/decoder/v2/Version2LicenseDecoder";
     private static final String LICENSE_DECODER_CLASS = "com.atlassian.extras.decoder.v2.Version2LicenseDecoder";
+    private final String libPath;
+
+    public KeyTransformer(String libPath) {
+        this.libPath = libPath;
+    }
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
@@ -28,8 +33,14 @@ public class KeyTransformer implements ClassFileTransformer {
 
         if (className.equals(CN_KEY_SPEC)) {
             return handleKeySpec();
-        } else if(className.equals(LICENSE_DECODER_PATH)) {
-            return handleLicenseDecoder();
+        }
+
+        if (libPath == null){
+            return classfileBuffer;
+        }
+
+        if (className.equals(LICENSE_DECODER_PATH)) {
+            return handleLicenseDecoder(libPath);
         }
 
         return classfileBuffer;
@@ -66,11 +77,14 @@ public class KeyTransformer implements ClassFileTransformer {
      * @return 修改过的类的字节码
      * @throws IllegalClassFormatException 当某些地方出问题了就会抛出这个异常
      */
-    private byte[] handleLicenseDecoder() throws IllegalClassFormatException {
+    private byte[] handleLicenseDecoder(String libFilePath) throws IllegalClassFormatException {
         try {
-            // 我不知道怎么从 com.atlassian.bitbucket.internal.launcher.BitbucketServerLauncher 读取这个路径，所以我直接 HARD CODE
-            // Forgive me pls...
-            File libs = new File("/opt/atlassian/bitbucket/7.21.0/app/WEB-INF/lib");
+            File libs = new File(libFilePath);
+            if (!libs.exists()) {
+                System.err.printf("path[%s]not found, please check the parameters.\n", libFilePath);
+            }else if (!libs.isDirectory()){
+                System.err.printf("path[%s]not a correct directory, please check the parameters.\n", libFilePath);
+            }
             ClassPool cp = ClassPool.getDefault();
 
             Arrays.stream(Objects.requireNonNull(libs.listFiles())).map(File::getAbsolutePath).forEach((it) -> {
