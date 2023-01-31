@@ -2,12 +2,17 @@ package io.zhile.crack.atlassian.license.products;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 public class Training extends Plugin {
-    public Training(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        super(ContactName, ContactEMail, ServerID, Organisation);
+    public Training(String contactName, String contactEMail, String serverID, String organisation) {
+        super(contactName, contactEMail, serverID, organisation);
+    }
+
+    @Override
+    public void init() {
+        super.init();
 
         setSubscription(true);
     }

@@ -5,19 +5,24 @@ import io.zhile.crack.atlassian.license.LicenseType;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 public class JIRAServiceDesk extends LicenseProperty {
-    public JIRAServiceDesk(String ContactName, String ContactEMail, String ServerID, String Organisation, boolean dataCenter) {
-        super(ContactName, ContactEMail, ServerID, Organisation, dataCenter);
+    public JIRAServiceDesk(String contactName, String contactEMail, String serverID, String organisation, boolean dataCenter) {
+        super(contactName, contactEMail, serverID, organisation, dataCenter);
+    }
+
+    public JIRAServiceDesk(String contactName, String contactEMail, String serverID, String organisation) {
+        super(contactName, contactEMail, serverID, organisation);
+    }
+
+    @Override
+    public void init() {
+        super.init();
 
         setEnterprise(true);
         setNumRoleCount(-1);
-    }
-
-    public JIRAServiceDesk(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        this(ContactName, ContactEMail, ServerID, Organisation, false);
     }
 
     @Override

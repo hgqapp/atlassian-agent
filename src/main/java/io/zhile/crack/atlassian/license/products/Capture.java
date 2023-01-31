@@ -1,26 +1,14 @@
 package io.zhile.crack.atlassian.license.products;
 
-import io.zhile.crack.atlassian.license.LicenseType;
-
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
-public class Capture extends Plugin {
-    public Capture(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        super(ContactName, ContactEMail, ServerID, Organisation);
+public class Capture extends ThirdPlugin {
+    public Capture(String contactName, String contactEMail, String serverID, String organisation) {
+        super(contactName, contactEMail, serverID, organisation);
 
-        setServerID(null);
-    }
-
-    @Override
-    public String getProductName() {
-        return "bonfire";
-    }
-
-    @Override
-    public void setLicenseType(LicenseType licenseType) {
-        data.put("LicenseTypeName", licenseType.toString());
+        setProductName("bonfire");
     }
 }
