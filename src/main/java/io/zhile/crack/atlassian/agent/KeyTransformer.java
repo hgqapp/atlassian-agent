@@ -1,5 +1,4 @@
 package io.zhile.crack.atlassian.agent;
-
 import javassist.*;
 
 import java.io.File;
@@ -7,6 +6,7 @@ import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -70,7 +70,11 @@ public class KeyTransformer implements ClassFileTransformer {
         try {
             // 我不知道怎么从 com.atlassian.bitbucket.internal.launcher.BitbucketServerLauncher 读取这个路径，所以我直接 HARD CODE
             // Forgive me pls...
-            File libs = new File("/opt/atlassian/bitbucket/7.21.0/app/WEB-INF/lib");
+
+            Map<String, String> osEnv = System.getenv();
+            String binDir = osEnv.get("BIN_DIR");
+            String path = binDir.replace("bin", "app/WEB-INF/lib");
+            File libs = new File(path);
             ClassPool cp = ClassPool.getDefault();
 
             Arrays.stream(Objects.requireNonNull(libs.listFiles())).map(File::getAbsolutePath).forEach((it) -> {
@@ -110,8 +114,21 @@ public class KeyTransformer implements ClassFileTransformer {
 
             CtClass target = cp.getCtClass(LICENSE_DECODER_CLASS);
             CtMethod verifyLicenseHash = target.getDeclaredMethod("verifyLicenseHash");
-            verifyLicenseHash.setBody("{System.out.println(\"atlassian-agent: skip hash check\");}");
+            verifyLicenseHash.setBody("{System.out.println(\"atlassian-agent: skip license hash check\");}");
+            CtMethod checkAndGetLicenseText = target.getDeclaredMethod("checkAndGetLicenseText");
 
+            checkAndGetLicenseText.setBody("        try {\n" +
+                    "            byte[] decodedBytes = Base64.decodeBase64($1.getBytes(StandardCharsets.UTF_8));\n" +
+                    "            ByteArrayInputStream in = new ByteArrayInputStream(decodedBytes);\n" +
+                    "            DataInputStream dIn = new DataInputStream(in);\n" +
+                    "            int textLength = dIn.readInt();\n" +
+                    "            byte[] licenseText = new byte[textLength];\n" +
+                    "            dIn.read(licenseText);\n" +
+                    "            System.out.println(\"atlassian-agent: skip verify the license.\");\n" +
+                    "            return licenseText;\n" +
+                    "        } catch (Exception var10) {\n" +
+                    "            throw new LicenseException(var10);\n" +
+                    "        }");
             return target.toBytecode();
         } catch (Exception e) {
             e.printStackTrace();
