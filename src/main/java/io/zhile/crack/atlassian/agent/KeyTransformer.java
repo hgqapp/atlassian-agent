@@ -45,7 +45,7 @@ public class KeyTransformer implements ClassFileTransformer {
             try {
                 Class.forName("java.util.Base64");
                 cp.importPackage("java.util.Base64");
-                b64f = "Base64.getDecoder().decode";
+                b64f = "java.util.Base64.getDecoder().decode";
             } catch (ClassNotFoundException e) {
                 try {
                     Class.forName("javax.xml.bind.DatatypeConverter");
@@ -126,7 +126,7 @@ public class KeyTransformer implements ClassFileTransformer {
             CtMethod checkAndGetLicenseText = target.getDeclaredMethod("checkAndGetLicenseText");
 
             checkAndGetLicenseText.setBody("        try {\n" +
-                    "            byte[] decodedBytes = Base64.decodeBase64($1.getBytes(StandardCharsets.UTF_8));\n" +
+                    "            byte[] decodedBytes = org.apache.commons.codec.binary.Base64.decodeBase64($1.getBytes(StandardCharsets.UTF_8));\n" +
                     "            ByteArrayInputStream in = new ByteArrayInputStream(decodedBytes);\n" +
                     "            DataInputStream dIn = new DataInputStream(in);\n" +
                     "            int textLength = dIn.readInt();\n" +
