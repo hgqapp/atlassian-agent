@@ -41,7 +41,26 @@
 
 ~~**新版本的 Atlassian 服务端（只测试了 Bitbucket）加入了一个证书哈希验证，需要根据 "atlassian-extras-decoder-v2" 支持库的位置进行修改代码：`io.zhile.crack.atlassian.agent.KeyTransformer#handleLicenseDecoder`**~~
 
-**此处已修复，直接使用jar包即可**
+~~**此处已修复，直接使用jar包即可**~~
+
+### 重要 Important!!
+
+需要在启动脚本中加上相应产品的lib库路径 作为系统变量  
+示例说明  注意不同产品lib库路径不同，仔细对比
+
+* confluence
+
+   confluence_home (安装路径)/bin/start-confluence.sh 第一行添加
+
+   ```export ATLASSIAN_DIR="/opt/atlassian/confluence/confluence/WEB-INF/lib"```  
+
+
+* bitbucket 
+
+  bitbucket_home (安装路径)/bin/start-bitbucket.sh 第一行添加 
+
+   ```export ATLASSIAN_DIR="/opt/atlassian/bitbucket/app/WEB-INF/lib/WEB-INF/lib"```
+ 
 ### 配置Agent
 1. 将`atlassian-agent.jar`放在一个你不会随便删除的位置（你服务器上的所有Atlassian服务可共享同一个`atlassian-agent.jar`）。
 2. 设置环境变量`JAVA_OPTS`（这其实是Java的环境变量，用来指定其启动java程序时附带的参数），把`-javaagent`参数附带上。具体可以这么做：
