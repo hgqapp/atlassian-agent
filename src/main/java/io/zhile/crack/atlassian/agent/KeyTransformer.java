@@ -1,5 +1,4 @@
 package io.zhile.crack.atlassian.agent;
-
 import javassist.*;
 
 import java.io.File;
@@ -12,8 +11,8 @@ import java.util.Objects;
 
 /**
  * @author pengzhile
- * @version 1.0
  * @link https://zhile.io
+ * @version 1.0
  */
 public class KeyTransformer implements ClassFileTransformer {
     private static final String CN_KEY_SPEC = "java/security/spec/EncodedKeySpec";
@@ -81,10 +80,11 @@ public class KeyTransformer implements ClassFileTransformer {
             // Forgive me pls...
 
             Map<String, String> osEnv = System.getenv();
-            String atlassianDir = osEnv.get("ATLASSIAN_DIR");
-            System.out.println("lib路径为：" + atlassianDir);
-            File libs = new File(atlassianDir);
+            String binDir = osEnv.get("BIN_DIR");
+            String path = binDir.replace("bin", "app/WEB-INF/lib");
+            File libs = new File(path);
             ClassPool cp = ClassPool.getDefault();
+
             Arrays.stream(Objects.requireNonNull(libs.listFiles())).map(File::getAbsolutePath).forEach((it) -> {
                 try {
                     cp.insertClassPath(it);
