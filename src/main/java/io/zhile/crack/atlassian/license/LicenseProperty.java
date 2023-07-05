@@ -129,8 +129,8 @@ abstract public class LicenseProperty {
             data.put(productProperty("DataCenter"), "true");
             data.put("Subscription", "true");
         } else {
-            data.put(productProperty("DataCenter"), "true");
-            data.put("Subscription", "true");
+            data.remove(productProperty("DataCenter"));
+            data.remove("Subscription");
         }
     }
 
