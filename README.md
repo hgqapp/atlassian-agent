@@ -96,7 +96,7 @@
 * 你可以加入QQ群：30347511 和我实时交流。
 * 访问网站：[https://zhile.io](https://zhile.io) 给我留言。
 
-## Docker 使用
+## Docker 镜像
 
 ### Bitbucket
 #### Dockerfile
