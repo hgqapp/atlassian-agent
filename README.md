@@ -59,7 +59,7 @@
 
   bitbucket_home (安装路径)/bin/start-bitbucket.sh 第一行添加 
 
-   ```export ATLASSIAN_DIR="/opt/atlassian/bitbucket/app/WEB-INF/lib/WEB-INF/lib"```
+   ```export ATLASSIAN_DIR="/opt/atlassian/bitbucket/app/WEB-INF/lib"```
  
 ### 配置Agent
 1. 将`atlassian-agent.jar`放在一个你不会随便删除的位置（你服务器上的所有Atlassian服务可共享同一个`atlassian-agent.jar`）。
@@ -95,6 +95,79 @@
 * 欢迎你来一起完善这个项目，请发PR。
 * 你可以加入QQ群：30347511 和我实时交流。
 * 访问网站：[https://zhile.io](https://zhile.io) 给我留言。
+
+## Docker 使用
+
+### Bitbucket
+#### Dockerfile
+```dockerfile
+FROM atlassian/bitbucket:8.11.2
+LABEL maintainer="caelumlux <caelumlux@outlook.com>" version="8.11.2"
+
+ARG AGENT_PATH=/opt/atlassian
+ARG AGENT_FILENAME=atlassian-agent-jar-with-dependencies.jar
+# 将破解包加入容器
+COPY ./atlassian-agent-jar-with-dependencies.jar /opt/atlassian/
+ENV ATLASSIAN_DIR="/opt/atlassian/bitbucket/app/WEB-INF/lib"
+ENV JAVA_OPTS="-javaagent:${AGENT_PATH}/${AGENT_FILENAME} ${JAVA_OPTS}"
+```
+#### docker-compose.yml
+```yaml
+version: "3"
+
+services:
+  confluence:
+    image: caelumlux/bitbucket:8.11.2
+    container_name: bitbucket
+    ports:
+      - "7990:7990"
+      - "7999:7999"
+    volumes:
+      - "/var/atlassian/application-data/bitbucket:/var/atlassian/application-data/bitbucket "
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - TZ="Asia/Shanghai"
+    network_mode: bridge
+
+```
+Confluence
+
+#### Dockerfile
+
+```dockerfile
+FROM atlassian/confluence:8.1.4
+LABEL maintainer="caelumlux <caelumlux@outlook.com>" version="8.1.4"
+
+ARG AGENT_PATH=/opt/atlassian
+ARG AGENT_FILENAME=atlassian-agent-jar-with-dependencies.jar
+# 将破解包加入容器
+COPY ./atlassian-agent-jar-with-dependencies.jar /opt/atlassian/
+ENV ATLASSIAN_DIR="/opt/atlassian/confluence/confluence/WEB-INF/lib"
+ENV JAVA_OPTS="-javaagent:${AGENT_PATH}/${AGENT_FILENAME} ${JAVA_OPTS}"
+```
+
+#### docker-compose.yml
+
+```yaml
+version: "3"
+
+services:
+    confluence:
+        image: caelumlux/confluence:8.1.4
+        container_name: confluence
+        ports:
+            - "8090:8090"
+            - "8091:8091"
+        volumes:
+            - "/var/atlassian/application-data/confluence:/var/atlassian/application-data/confluence"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        environment:
+            - TZ="Asia/Shanghai"
+        network_mode:
+          bridge
+```
 
 ### 热心网友教程（感谢原作者，侵删！）
 * [confluence 安装及破解](https://www.qinjj.tech/2019/01/04/confluence%20install/)
