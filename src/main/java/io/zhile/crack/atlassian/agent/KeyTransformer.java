@@ -80,9 +80,9 @@ public class KeyTransformer implements ClassFileTransformer {
             // Forgive me pls...
 
             Map<String, String> osEnv = System.getenv();
-            String binDir = osEnv.get("BIN_DIR");
-            String path = binDir.replace("bin", "app/WEB-INF/lib");
-            File libs = new File(path);
+            String atlassianDir = osEnv.get("ATLASSIAN_DIR");
+            System.out.println("the ATLASSIAN_DIR is：" + atlassianDir);
+            File libs = new File(atlassianDir);
             ClassPool cp = ClassPool.getDefault();
 
             Arrays.stream(Objects.requireNonNull(libs.listFiles())).map(File::getAbsolutePath).forEach((it) -> {
