@@ -10,8 +10,8 @@ import java.util.Map;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 public class Usage {
     private static final Options OPTIONS = new Options();
@@ -33,6 +33,7 @@ public class Usage {
         PRODUCTS.put("jsd", "JIRA Service Desk");
         PRODUCTS.put("training", "Training plugin for JIRA");
         PRODUCTS.put("capture", "Capture plugin for JIRA");
+        PRODUCTS.put("*", "Third party plugin key, looks like: com.foo.bar");
 
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : PRODUCTS.entrySet()) {
@@ -83,9 +84,9 @@ public class Usage {
         formatter.printHelp("java -jar " + selfPath, OPTIONS, true);
 
         System.out.println("\n================================================================================");
-        System.out.println("\n# Crack agent usage: append -javaagent arg to system environment: CATALINA_OPTS.");
+        System.out.println("\n# Crack agent usage: append -javaagent arg to system environment: JAVA_OPTS.");
         System.out.println("# Example(execute this command or append it to setenv.sh/setenv.bat file): \n");
-        System.out.println("  export CATALINA_OPTS=\"-javaagent:" + selfPath + " ${CATALINA_OPTS}\"");
+        System.out.println("  export JAVA_OPTS=\"-javaagent:" + selfPath + " ${JAVA_OPTS}\"");
         System.out.println("\n# Then start your confluence/jira server.\n");
 
         System.exit(1);
@@ -149,11 +150,13 @@ public class Usage {
                 property = new Capture(contactName, contactEMail, serverID, organisation);
                 break;
             default:
-                printUsage();
-                return;
+                property = new ThirdPlugin(contactName, contactEMail, serverID, organisation);
+                ((ThirdPlugin) property).setProductName(product);
+                break;
         }
 
         try {
+            property.init();
             String licenseCode = Encoder.encode(property.toString());
 
             System.out.println("Your license code(Don't copy this line!!!): \n");

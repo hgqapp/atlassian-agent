@@ -7,16 +7,34 @@ import java.util.Map;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 abstract public class LicenseProperty {
     protected Date date = new Date();
     protected Map<String, String> data = new HashMap<>(32);
 
+    protected String contactName;
+    protected String contactEMail;
+    protected String serverID;
+    protected String organisation;
+    protected boolean dataCenter;
+
     abstract public String getProductName();
 
-    public LicenseProperty(String ContactName, String ContactEMail, String ServerID, String Organisation, boolean dataCenter) {
+    public LicenseProperty(String contactName, String contactEMail, String serverID, String organisation, boolean dataCenter) {
+        this.contactName = contactName;
+        this.contactEMail = contactEMail;
+        this.serverID = serverID;
+        this.organisation = organisation;
+        this.dataCenter = dataCenter;
+    }
+
+    public LicenseProperty(String contactName, String contactEMail, String serverID, String organisation) {
+        this(contactName, contactEMail, serverID, organisation, false);
+    }
+
+    public void init() {
         Date expiryDate = new Date(3771590399000L);
         String licenseId = "L" + System.currentTimeMillis();
 
@@ -33,17 +51,13 @@ abstract public class LicenseProperty {
         setDescription("Unlimited license by https://zhile.io");
         setEvaluation(false);
 
-        setContactName(ContactName);
-        setContactEMail(ContactEMail);
-        setServerID(ServerID);
-        setOrganisation(Organisation);
+        setContactName(contactName);
+        setContactEMail(contactEMail);
+        setServerID(serverID);
+        setOrganisation(organisation);
         setDataCenter(dataCenter);
 
         data.put("licenseVersion", "2");
-    }
-
-    public LicenseProperty(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        this(ContactName, ContactEMail, ServerID, Organisation, false);
     }
 
     public void setDescription(String description) {

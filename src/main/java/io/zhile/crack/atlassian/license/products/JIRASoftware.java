@@ -6,19 +6,24 @@ import io.zhile.crack.atlassian.license.LicenseType;
 
 /**
  * @author pengzhile
- * @link https://zhile.io
  * @version 1.0
+ * @link https://zhile.io
  */
 public class JIRASoftware extends LicenseProperty {
-    public JIRASoftware(String ContactName, String ContactEMail, String ServerID, String Organisation, boolean dataCenter) {
-        super(ContactName, ContactEMail, ServerID, Organisation, dataCenter);
+    public JIRASoftware(String contactName, String contactEMail, String serverID, String organisation, boolean dataCenter) {
+        super(contactName, contactEMail, serverID, organisation, dataCenter);
+    }
+
+    public JIRASoftware(String contactName, String contactEMail, String serverID, String organisation) {
+        super(contactName, contactEMail, serverID, organisation);
+    }
+
+    @Override
+    public void init() {
+        super.init();
 
         setLicenseEdition(LicenseEdition.UNLIMITED);
         setEnterprise(true);
-    }
-
-    public JIRASoftware(String ContactName, String ContactEMail, String ServerID, String Organisation) {
-        this(ContactName, ContactEMail, ServerID, Organisation, false);
     }
 
     @Override
